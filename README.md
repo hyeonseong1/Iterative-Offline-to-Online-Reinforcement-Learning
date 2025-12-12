@@ -4,8 +4,8 @@ This repository is improved version of "Iterative Regularized Policy Optimizatio
 ## Prepare python environment
 
 ```bash
-conda create --name IRPO python=3.8
-conda activate IRPO
+conda create --name IO2 python=3.8
+conda activate IO2
 conda install --file requirements.txt
 ```
 
