@@ -1,0 +1,17 @@
+joblib
+ray<=3.0.0
+imitation<=1.0.0
+numpy
+pandas
+cffi
+cython==0.29.21
+lockfile
+mujoco-py==2.1.2.14
+scipy<=1.8.1
+stable-baselines3<=2.2.1
+torch<=2.2.1
+tqdm
+gym==0.23.1
+gymnasium>=0.26.0
+shimmy
+d4rl @ git+https://github.com/rail-berkeley/d4rl@master#egg=d4rl

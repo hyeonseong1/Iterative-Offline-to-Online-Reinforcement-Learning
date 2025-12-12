@@ -1,0 +1,65 @@
+{
+    "env": {
+        "name": "halfcheetah-medium-v2",
+        "normalize": true
+    },
+    "bc": {
+        "experiment_name": "iter_2/medium_halfcheetah_100epochs_loss_2_annealing",
+        "policy_file_save_name": "bc_checkpoint",
+        "policy_after_value_head_trained_file_save_name": "bc_checkpoint_after_value_head_trained",
+        "data_cache_dir": "rollout/data/iter_1/medium_halfcheetah_1e7steps_8envs_loss_1_annealing.hdf5",
+        "seed": 11,
+        "train_epochs": 100,
+        "batch_size": 256,
+        "l2_weight": 0.0001,
+        "ent_weight": 0.01,
+        "use_loss_callback": true,
+        "prob_true_act_threshold": 10000.0,
+        "loss_threshold": 0.0
+    },
+    "rl_bc": {
+        "experiment_name": "iter_2/medium_halfcheetah_1e7steps_8envs_loss_2_annealing",
+        "seed": 12,
+        "seed_for_load_algo": 14,
+        "net_arch": [
+            256,
+            256
+        ],
+        "batch_size": 256,
+        "ent_coef": 0.0001,
+        "lr": 0.0001,
+        "gamma": 0.98,
+        "gae_lambda": 0.92,
+        "activate_value_head_train_steps": 1000000.0,
+        "kl_with_bc_model_coef": 0.1,
+        "kl_annealing": true,
+        "train_steps": 10000000.0,
+        "rollout_process_num": 8,
+        "//n_steps": "\u91c7\u6837\u65f6\u6bcf\u4e2a\u73af\u5883\u91c7\u6837\u7684step\u6570\uff0cPPO\u6bcf\u6b21\u8bad\u7ec3\u6536\u96c6\u7684\u6570\u636e\u91cf\u662fn_steps * num_envs",
+        "n_steps": 256,
+        "//n_epochs": "\u91c7\u6837\u7684\u6570\u636e\u5728\u8bad\u7ec3\u4e2d\u91cd\u590d\u4f7f\u7528\u7684\u6b21\u6570",
+        "n_epochs": 5,
+        "__eval_freq": "\u591a\u5c11\u6b21env.step()\u8bc4\u4f30\u4e00\u6b21\uff0c\u6b64\u5904\u8bbe\u7f6e\u4e3a1000\uff0c\u56e0\u4e3aVecEnv\u670972\u4e2a\u5e76\u884c\u73af\u5883\uff0c\u6240\u4ee5\u5b9e\u9645\u76f8\u5f53\u4e8e72*1000\u6b21step\uff0c\u8bc4\u4f30\u4e00\u6b21",
+        "eval_freq": 1024,
+        "kl_decay_start": 0.2,
+        "kl_decay_end": 0.01
+    },
+    "rl": {
+        "experiment_name": "iter_2/medium_halfcheetah_1e7steps_8_normal_envs_loss_2_singleRL",
+        "seed": 19,
+        "rollout_process_num": 8,
+        "train_steps": 10000000.0,
+        "batch_size": 256,
+        "ent_coef": 0.000401762,
+        "max_grad_norm": 0.8,
+        "learning_rate": 2.0633e-05,
+        "vf_coef": 0.58096,
+        "clip_range": 0.1,
+        "//n_steps": "\u91c7\u6837\u65f6\u6bcf\u4e2a\u73af\u5883\u91c7\u6837\u7684step\u6570\uff0cPPO\u6bcf\u6b21\u8bad\u7ec3\u6536\u96c6\u7684\u6570\u636e\u91cf\u662fn_steps * num_envs",
+        "n_steps": 256,
+        "//n_epochs": "\u91c7\u6837\u7684\u6570\u636e\u5728\u8bad\u7ec3\u4e2d\u91cd\u590d\u4f7f\u7528\u7684\u6b21\u6570",
+        "n_epochs": 5,
+        "__eval_freq": "\u591a\u5c11\u6b21env.step()\u8bc4\u4f30\u4e00\u6b21\uff0c\u6b64\u5904\u8bbe\u7f6e\u4e3a1000\uff0c\u56e0\u4e3aVecEnv\u670972\u4e2a\u5e76\u884c\u73af\u5883\uff0c\u6240\u4ee5\u5b9e\u9645\u76f8\u5f53\u4e8e72*1000\u6b21step\uff0c\u8bc4\u4f30\u4e00\u6b21",
+        "eval_freq": 1024
+    }
+}
