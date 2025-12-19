@@ -6,7 +6,7 @@ This repository is improved version of "Iterative Regularized Policy Optimizatio
 ```bash
 conda create --name IO2 python=3.8
 conda activate IO2
-conda install --file requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Experiments
