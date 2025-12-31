@@ -1,13 +1,5 @@
 # Experiments on Panda-Gym
 
-## Prepare Python Environment
-
-Install [Panda-Gym](https://github.com/qgallouedec/panda-gym)
-
-```bash
-pip install panda-gym
-```
-
 ### Move into directory first
 ```bash
 cd exp_on_panda
@@ -17,10 +9,7 @@ cd exp_on_panda
 
 Rollout demonstrations by a [PID controller](https://panda-gym.readthedocs.io/en/latest/usage/manual_control.html), refer to the Jupyter script `rollout/rollout_my_reach_by_pid.ipynb`.
 
-## Test
-
-### Pre-train policies by BC → Fine-tune policies by RL → Update demonstrations
-sb3_bc_train.py → sb3_rl_train_after_bc.py → rollout/rollout_my_reach_by_rl_bc.py
+## Training
 
 ```bash
 ### Reach ###

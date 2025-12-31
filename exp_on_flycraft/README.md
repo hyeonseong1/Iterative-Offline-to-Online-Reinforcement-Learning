@@ -1,8 +1,3 @@
-## Install
-```bash
-pip install -e fly-craft
-```
-
 ## Generate Demonstrations
 
 ### Generate demonstrations with PID controller
@@ -17,63 +12,9 @@ cd exp_on_flycraft
 ```bash
 # sample trajectories by single-processing
 python demonstrations/rollout_trajs/rollout_by_pid.py --data-dir-suffix v0 --step-frequence 10 --v-min 100 --v-max 300 --v-interval 10 --mu-min -85 --mu-max 85 --mu-interval 5 --chi-min -170 --chi-max 170 --chi-interval 5
-
-# sample trajectories by multi-processing (base on Ray, recommended)
-python demonstrations/rollout_trajs/rollout_by_pid_parallel.py --data-dir-suffix v1 --step-frequence 10 --v-min 100 --v-max 300 --v-interval 10 --mu-min -85 --mu-max 85 --mu-interval 5 --chi-min -170 --chi-max 170 --chi-interval 5
 ```
 
-### Train policy with SAC+HER
-```bash
-python train_scripts/train_with_sac_her.py --config-file-name sac_her_default.json
-```
-
-### Update demonstrations with policy
-
-Update demonstrations in {demos-dir} with policy in {policy-ckpt-dir}.
-
-```bash
-python demonstrations/rollout_trajs/rollout_by_policy_and_update_demostrations.py --policy-ckpt-dir checkpoints/sac_her/best_model --env-config-dir configs/env/env_config_for_ppo.json --demos-dir demonstrations/data/10hz_10_5_5_v1
-```
-
-### Augment demonstrations
-
-Augment trajectories based on $\chi$'s symmetry.
-
-```bash
-python demonstrations/utils/augment_trajs.py --demos-dir demonstrations/data/10hz_10_5_5_v1
-```
-
-## Train policies
-
-### Pre-train policy with Behavioral Cloning
-
-Train policy by Behaviroal Cloning with config file in {config-file-name}
-
-```bash
-python train_scripts/train_with_bc_simba.py --config-file-name configs/train/iteration_1/annealing/seed_1.json
-```
-
-### Fine-tune a pre-trained policy with PPO
-
-Fine-tune a pre-trained policy with PPO with config file in {config-file-name}
-
-```bash
-python train_scripts/train_with_rl_bc_simba.py --config-file-name configs/train/iteration_1/annealing/seed_1.json
-```
-
-## More experiments
-
-* Refer to `exp_on_d4rl/` for experiments on HalfCheetah and Hopper.
-* Refer to `exp_on_panda/` for experiments on Reach.
-
-
-```bash
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/user/.mujoco/mujoco210/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
-python evaluate/evaluate.py --config-file-name configs/train/iteration_3/annealing/seed_1.json --model-path checkpoints/rl/iter_3/10hz_annealing_2e8steps_1/best_model.zip
-```
-
-
+## Training
 ```bash
 #### Prepare demonstrations
 # sample trajectories by multi-processing (base on Ray, recommended)
@@ -156,14 +97,9 @@ python demonstrations/rollout_trajs/rollout_by_policy_and_update_demostrations.p
 python demonstrations/utils/load_dataset.py \
     --data-dir demonstrations/data/10hz_10_5_5_v4 \
     --cache-dir demonstrations/cache/10hz_10_5_5_iter_4_aug
+```
 
-
-#### iter 4
-# 1. Train BC
-python train_scripts/train_with_bc_simba.py --config-file-name configs/train/iteration_4/annealing/seed_1.json
-
-# 2. Train RL
-python train_scripts/train_with_rl_bc_simba.py --config-file-name configs/train/iteration_4/annealing/seed_1.json
-
-# (Optional) Rollout for further iterations...
+## How to evaluate?
+```bash
+python evaluate/evaluate.py --config-file-name configs/train/iteration_3/annealing/seed_1.json --model-path checkpoints/rl/iter_3/10hz_annealing_2e8steps_1/best_model.zip
 ```

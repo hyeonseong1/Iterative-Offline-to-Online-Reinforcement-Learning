@@ -1,16 +1,5 @@
 # Experiments on D4RL
 
-## Prepare Python Environment
-
-Refer to [D4RL](https://github.com/Farama-Foundation/D4RL) for setting up the RL environments, the other python packages are the same as `requirements.txt`.
-```bash
-cd d4rl 
-pip install -e .
-
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/user/.mujoco/mujoco210/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
-```
-
 **Note:** D4RL datasets are automatically downloaded when you first use them. They will be stored in `~/.d4rl/datasets` by default. You don't need to manually download them - they'll be downloaded automatically when you first access a dataset. Don't cancel before D4RL datasets download finished.
 
 #### (Optional) Troubleshooting D4RL/mujoco_py Installation
@@ -45,54 +34,7 @@ After fixing mujoco_py, try running your D4RL training script again.
 
 BC training scripts will download demonstrations automatically with the help of D4RL.
 
-## Full result
-```bash
-bash exp_on_d4rl/scripts/halfcheetah.sh --seed 1
-bash exp_on_d4rl/scripts/hopper.sh --seed 1
-```
-
-## Pre-train policies by BC
-
-```bash
-# HalfCheetah
-python exp_on_d4rl/sb3_bc_train.py --config_file_name iter_1/seed1/medium_halfcheetah_256_256.json
-
-# Hopper
-python exp_on_d4rl/sb3_bc_train.py --config_file_name iter_1/seed1/medium_hopper_256_256.json
-```
-
-## Fine-tune policies by RL
-
-```bash
-# HalfCheetah
-python exp_on_d4rl/sb3_rl_train_after_bc.py --config_file_name iter_1/seed1/kl_1e-1/medium_halfcheetah_256_256_kl1e-1.json
-
-# Hopper
-python exp_on_d4rl/sb3_rl_train_after_bc.py --config_file_name iter_1/seed1/kl_1e-1/medium_hopper_256_256_kl1e-1.json
-```
-
-## Update demonstrations
-
-Refer to the Jupyter scripts in `rollout/rollout.ipynb` and `rollout/rollout_by_multi_policies.ipynb`
-```bash
-# Halfcheetah
-python exp_on_d4rl/rollout/rollout.py --config_file_name iter_1/seed1/kl_1e-1/medium_halfcheetah_256_256_kl1e-1.json --deterministic
-
-# Hopper
-python exp_on_d4rl/rollout/rollout.py --config_file_name iter_1/seed1/kl_1e-1/medium_hopper_256_256_kl1e-1.json
-```
-
-## (Optional) Train policies from scratch by RL
-
-```bash
-# HalfCheetah
-python exp_on_d4rl/sb3_rl_train.py --config_file_name iter_1/seed1/medium_halfcheetah_256_256.json
-
-# Hopper
-python exp_on_d4rl/sb3_rl_train.py --config_file_name iter_1/seed1/medium_hopper_256_256.json
-```
-
-## Test
+## Training
 ```bash
 ##### Annealing ##### <- reward 10000
 # iter1 (halfcheetah)
