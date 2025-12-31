@@ -1,0 +1,48 @@
+{
+    "env": {
+        "config_file": "env_config_for_ppo.json"
+    },
+    "bc": {
+        "experiment_name": "bc_simba_annealing",
+        "seed": 1,
+        "policy_file_save_name": "policy.zip",
+        "train_epochs": 5,
+        "batch_size": 2048,
+        "data_cache_dir": "cache/10hz_10_5_5_iter_1_aug",
+        "prob_true_act_threshold": 100.0,
+        "loss_threshold": 100.0,
+        "l2_weight": 0.0,
+        "ent_weight": 1e-3
+    },
+    "rl": {
+        "seed": 11
+    },
+    "rl_bc": {
+        "experiment_name": "ppo_simba_annealing",
+        "seed": 11,
+        "seed_for_load_algo": 11,
+        "net_arch": [
+            128,
+            128
+        ],
+        "batch_size": 2048,
+        "gamma": 0.99,
+        "activate_value_head_train_steps": 20000,
+        "train_steps": 100000,
+        "ent_coef": 0.0,
+        "lr": 3e-4,
+        "curr_rollout_process_num_comment": "Set to 16 for production",
+        "rollout_process_num": 16,
+        "kl_with_bc_model_coef": 1.0,
+        "kl_annealing": true,
+        "kl_annealing_start": 0.02,
+        "kl_annealing_end": 0.001,
+        "simba_hidden_dim": 256,
+        "simba_num_blocks": 4,
+        "evaluate_process_num": 8,
+        "callback_process_num": 8,
+        "evaluate_frequence": 2048,
+        "evaluate_nums_in_evaluation": 10,
+        "evaluate_nums_in_callback": 3
+    }
+}

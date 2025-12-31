@@ -1,0 +1,25 @@
+{
+    "env": {
+        "config_file": "env_config_for_sac_res.json",
+        "custom_config": {}
+    },
+    "sac": {
+        "experiment_name": "best_model_res",
+        "seed": 1,
+        "total_timesteps": 1e7,
+        "policy": "MultiInputPolicy",
+        "learning_rate": 3e-4,
+        "buffer_size": 1e6,
+        "batch_size": 256,
+        "ent_coef": "auto",
+        "gamma": 0.99,
+        "tau": 0.005,
+        "train_freq": 1,
+        "gradient_steps": 1,
+        "learning_starts": 4096,
+        "rollout_process_num": 8,
+        "evaluate_process_num": 8,
+        "evaluate_nums_in_evaluation": 4,
+        "evaluate_frequence": 1024
+    }
+}

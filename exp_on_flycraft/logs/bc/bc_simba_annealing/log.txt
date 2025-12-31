@@ -1,0 +1,43 @@
+Logging to /home/hs/dev_ai/codes/IRPO/exp_on_flycraft/logs/bc/bc_simba_annealing
+SimBaActorCriticPolicy(
+  (features_extractor): FlattenExtractor(
+    (flatten): Flatten(start_dim=1, end_dim=-1)
+  )
+  (pi_features_extractor): FlattenExtractor(
+    (flatten): Flatten(start_dim=1, end_dim=-1)
+  )
+  (vf_features_extractor): FlattenExtractor(
+    (flatten): Flatten(start_dim=1, end_dim=-1)
+  )
+  (mlp_extractor): SimBaMlpExtractor(
+    (policy_net): SimBaBackbone(
+      (rs_norm): RunningStatsNorm()
+      (input_linear): Linear(in_features=14, out_features=256, bias=True)
+      (blocks): ModuleList(
+        (0-1): 2 x SimBaResidualBlock(
+          (layer_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+          (linear1): Linear(in_features=256, out_features=256, bias=True)
+          (activation): ReLU()
+          (linear2): Linear(in_features=256, out_features=256, bias=True)
+        )
+      )
+      (output_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+    )
+    (value_net): SimBaBackbone(
+      (rs_norm): RunningStatsNorm()
+      (input_linear): Linear(in_features=14, out_features=256, bias=True)
+      (blocks): ModuleList(
+        (0-1): 2 x SimBaResidualBlock(
+          (layer_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+          (linear1): Linear(in_features=256, out_features=256, bias=True)
+          (activation): ReLU()
+          (linear2): Linear(in_features=256, out_features=256, bias=True)
+        )
+      )
+      (output_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (action_net): Linear(in_features=256, out_features=3, bias=True)
+  (value_net): Linear(in_features=256, out_features=1, bias=True)
+)
+load data from: demonstrations/cache/10hz_10_5_5_iter_1_aug

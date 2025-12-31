@@ -1,0 +1,83 @@
+Logging to /home/hs/dev_ai/codes/IRPO/exp_on_flycraft/logs/rl/iter1/simba_annealing/seed1
+SimBaActorCriticPolicy(
+  (features_extractor): CombinedExtractor(
+    (extractors): ModuleDict(
+      (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+      (desired_goal): Flatten(start_dim=1, end_dim=-1)
+      (observation): Flatten(start_dim=1, end_dim=-1)
+    )
+  )
+  (pi_features_extractor): CombinedExtractor(
+    (extractors): ModuleDict(
+      (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+      (desired_goal): Flatten(start_dim=1, end_dim=-1)
+      (observation): Flatten(start_dim=1, end_dim=-1)
+    )
+  )
+  (vf_features_extractor): CombinedExtractor(
+    (extractors): ModuleDict(
+      (achieved_goal): Flatten(start_dim=1, end_dim=-1)
+      (desired_goal): Flatten(start_dim=1, end_dim=-1)
+      (observation): Flatten(start_dim=1, end_dim=-1)
+    )
+  )
+  (mlp_extractor): SimBaMlpExtractor(
+    (policy_net): SimBaBackbone(
+      (rs_norm): RunningStatsNorm()
+      (input_linear): Linear(in_features=14, out_features=256, bias=True)
+      (blocks): ModuleList(
+        (0-1): 2 x SimBaResidualBlock(
+          (layer_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+          (linear1): Linear(in_features=256, out_features=256, bias=True)
+          (activation): ReLU()
+          (linear2): Linear(in_features=256, out_features=256, bias=True)
+        )
+      )
+      (output_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+    )
+    (value_net): SimBaBackbone(
+      (rs_norm): RunningStatsNorm()
+      (input_linear): Linear(in_features=14, out_features=256, bias=True)
+      (blocks): ModuleList(
+        (0-1): 2 x SimBaResidualBlock(
+          (layer_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+          (linear1): Linear(in_features=256, out_features=256, bias=True)
+          (activation): ReLU()
+          (linear2): Linear(in_features=256, out_features=256, bias=True)
+        )
+      )
+      (output_norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (action_net): Linear(in_features=256, out_features=3, bias=True)
+  (value_net): Linear(in_features=256, out_features=1, bias=True)
+)
+Reward before RL: -225.44611769795807
+Success rate before RL: 0.05
+------------------------------
+| time/              |       |
+|    fps             | 3304  |
+|    iterations      | 1     |
+|    time_elapsed    | 9     |
+|    total_timesteps | 32768 |
+------------------------------
+--------------------------------------------
+| time/                    |               |
+|    fps                   | 3466          |
+|    iterations            | 2             |
+|    time_elapsed          | 18            |
+|    total_timesteps       | 65536         |
+| train/                   |               |
+|    approx_kl             | 0.00046049146 |
+|    clip_fraction         | 6.1e-06       |
+|    clip_range            | 0.2           |
+|    entropy_loss          | 3.93          |
+|    explained_variance    | 0.00254       |
+|    kl_loss_with_bc_model | 0.000205      |
+|    learning_rate         | 0.000251      |
+|    loss                  | 201           |
+|    n_updates             | 5             |
+|    policy_gradient_loss  | -0.00263      |
+|    std                   | 0.0351        |
+|    value_loss            | 430           |
+--------------------------------------------

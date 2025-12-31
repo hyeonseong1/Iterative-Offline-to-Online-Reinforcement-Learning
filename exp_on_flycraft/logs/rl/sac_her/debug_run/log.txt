@@ -1,0 +1,97 @@
+Logging to /home/hs/dev_ai/codes/IRPO/exp_on_flycraft/logs/rl/sac_her/debug_run
+---------------------------------
+| rollout/           |          |
+|    success_rate    | 0        |
+| time/              |          |
+|    episodes        | 4        |
+|    fps             | 635      |
+|    time_elapsed    | 3        |
+|    total_timesteps | 2144     |
+| train/             |          |
+|    actor_loss      | -4.08    |
+|    critic_loss     | 0.266    |
+|    ent_coef        | 0.986    |
+|    ent_coef_loss   | -0.0697  |
+|    learning_rate   | 0.0001   |
+|    n_updates       | 139      |
+---------------------------------
+---------------------------------
+| rollout/           |          |
+|    success_rate    | 0        |
+| time/              |          |
+|    episodes        | 8        |
+|    fps             | 523      |
+|    time_elapsed    | 6        |
+|    total_timesteps | 3192     |
+| train/             |          |
+|    actor_loss      | -4.81    |
+|    critic_loss     | 0.205    |
+|    ent_coef        | 0.973    |
+|    ent_coef_loss   | -0.135   |
+|    learning_rate   | 0.0001   |
+|    n_updates       | 270      |
+---------------------------------
+---------------------------------
+| rollout/           |          |
+|    success_rate    | 0        |
+| time/              |          |
+|    episodes        | 12       |
+|    fps             | 470      |
+|    time_elapsed    | 9        |
+|    total_timesteps | 4472     |
+| train/             |          |
+|    actor_loss      | -5.73    |
+|    critic_loss     | 0.237    |
+|    ent_coef        | 0.958    |
+|    ent_coef_loss   | -0.216   |
+|    learning_rate   | 0.0001   |
+|    n_updates       | 430      |
+---------------------------------
+---------------------------------
+| rollout/           |          |
+|    success_rate    | 0        |
+| time/              |          |
+|    episodes        | 16       |
+|    fps             | 456      |
+|    time_elapsed    | 11       |
+|    total_timesteps | 5272     |
+| train/             |          |
+|    actor_loss      | -6.56    |
+|    critic_loss     | 0.227    |
+|    ent_coef        | 0.948    |
+|    ent_coef_loss   | -0.266   |
+|    learning_rate   | 0.0001   |
+|    n_updates       | 530      |
+---------------------------------
+---------------------------------
+| rollout/           |          |
+|    success_rate    | 0        |
+| time/              |          |
+|    episodes        | 20       |
+|    fps             | 438      |
+|    time_elapsed    | 14       |
+|    total_timesteps | 6384     |
+| train/             |          |
+|    actor_loss      | -7.29    |
+|    critic_loss     | 0.22     |
+|    ent_coef        | 0.935    |
+|    ent_coef_loss   | -0.336   |
+|    learning_rate   | 0.0001   |
+|    n_updates       | 669      |
+---------------------------------
+---------------------------------
+| rollout/           |          |
+|    success_rate    | 0        |
+| time/              |          |
+|    episodes        | 24       |
+|    fps             | 426      |
+|    time_elapsed    | 17       |
+|    total_timesteps | 7632     |
+| train/             |          |
+|    actor_loss      | -8.3     |
+|    critic_loss     | 77.6     |
+|    ent_coef        | 0.921    |
+|    ent_coef_loss   | -0.414   |
+|    learning_rate   | 0.0001   |
+|    n_updates       | 825      |
+---------------------------------

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+python exp_on_d4rl/sb3_bc_train.py --config_file_name iter_2/seed1/kl_1e-1/medium_hopper_kl1e-1.json
+python exp_on_d4rl/sb3_bc_train.py --config_file_name iter_2/seed2/kl_1e-1/medium_hopper_kl1e-1.json
+python exp_on_d4rl/sb3_bc_train.py --config_file_name iter_2/seed3/kl_1e-1/medium_hopper_kl1e-1.json
+python exp_on_d4rl/sb3_bc_train.py --config_file_name iter_2/seed4/kl_1e-1/medium_hopper_kl1e-1.json
+python exp_on_d4rl/sb3_bc_train.py --config_file_name iter_2/seed5/kl_1e-1/medium_hopper_kl1e-1.json

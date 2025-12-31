@@ -1,0 +1,54 @@
+{
+    "env": {
+        "config_file": "env_config_for_ppo.json",
+        "custom_config": {}
+    },
+    "bc": {
+        "experiment_name": "iter_3/10hz_annealing_300epochs_3",
+        "seed": 3,
+        "policy_file_save_name": "bc_checkpoint",
+        "policy_after_value_head_trained_file_save_name": "bc_checkpoint_after_value_head_trained",
+        "train_epochs": 300,
+        "batch_size": 4096,
+        "data_cache_dir": "cache/10hz_10_10_5_iter_3_aug",
+        "prob_true_act_threshold": 10000.0,
+        "loss_threshold": 0.0,
+        "l2_weight": 0.0,
+        "ent_weight": 0.001
+    },
+    "rl": {
+        "seed": 23,
+        "rollout_process_num": 64,
+        "train_steps": 200000000.0,
+        "experiment_name": "10hz_128_128_2e8steps_3_singleRL"
+    },
+    "rl_bc": {
+        "experiment_name": "iter_3/10hz_annealing_2e8steps_3",
+        "seed": 13,
+        "seed_for_load_algo": 3,
+        "net_arch": [
+            128,
+            128
+        ],
+        "batch_size": 4096,
+        "gamma": 0.995,
+        "activate_value_head_train_steps": 20000000.0,
+        "train_steps": 200000000.0,
+        "ent_coef": 0.0,
+        "lr": 0.0003,
+        "curr_rollout_process_num_comment": "Set to 16 for production",
+        "rollout_process_num": 64,
+        "kl_with_bc_model_coef": 0.001,
+        "kl_annealing": true,
+        "kl_annealing_start": 0.02,
+        "kl_annealing_end": 0.001,
+        "simba_hidden_dim": 256,
+        "simba_num_blocks": 4,
+        "evaluate_process_num": 32,
+        "callback_process_num": 32,
+        "evaluate_frequence": 2048,
+        "evaluate_nums_in_evaluation": 30,
+        "evaluate_nums_in_callback": 3,
+        "evaluate_on_all_tasks": true
+    }
+}
