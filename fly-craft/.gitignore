@@ -1,0 +1,9 @@
+.vscode
+__pycache__
+_build/
+build/
+*.egg-info
+dist/
+
+flycraft/planes/utils/logs/
+f16trace.csv
