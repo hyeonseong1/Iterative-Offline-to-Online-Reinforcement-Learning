@@ -1,3 +1,6 @@
+# Experiments on Fly-craft
+Note: This code has memory leak issue. We recommend to run the code on 256GiB RAM or more. 
+
 ## Generate Demonstrations
 
 ### Generate demonstrations with PID controller
