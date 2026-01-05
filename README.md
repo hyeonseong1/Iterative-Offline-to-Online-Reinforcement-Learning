@@ -1,5 +1,6 @@
-# Iterative Regularized Offline-to-Online (IO2)
-This repository is improved version of "Iterative Regularized Policy Optimization with Imperfect Demonstrations" (ICML2024).
+# Deep Iterative Regularized Policy Optimization with Imperfect Demonstrations
+The implementation in this repository **outperforms** the standard 'Iterative Regularized Policy Optimization with Imperfect Demonstrations (IRPO)' by a significant margin.  
+The implementation achieved an average improvement of **30.03%**.
 
 ## Prepare python environment
 
