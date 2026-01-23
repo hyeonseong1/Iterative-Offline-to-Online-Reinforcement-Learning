@@ -35,3 +35,10 @@ pip install -e fly-craft
 
 * Refer to `exp_on_d4rl/` for experiments on HalfCheetah and Hopper.
 * Refer to `exp_on_panda/` for experiments on Reach.
+
+## References
+Baseline code: https://github.com/GongXudong/IRPO  
+D4RL: https://github.com/Farama-Foundation/D4RL  
+Panga-gym: https://github.com/qgallouedec/panda-gym  
+Fly-craft: https://github.com/GongXudong/fly-craft  
+SimBa: https://github.com/SonyResearch/simba  
