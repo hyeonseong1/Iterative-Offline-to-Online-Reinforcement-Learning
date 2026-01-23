@@ -35,6 +35,7 @@ pip install -e fly-craft
 
 * Refer to `exp_on_d4rl/` for experiments on HalfCheetah and Hopper.
 * Refer to `exp_on_panda/` for experiments on Reach.
+* Refer to `exp_on_flycraft/` for experiments on Fly-craft.
 
 ## References
 Baseline code: https://github.com/GongXudong/IRPO  
