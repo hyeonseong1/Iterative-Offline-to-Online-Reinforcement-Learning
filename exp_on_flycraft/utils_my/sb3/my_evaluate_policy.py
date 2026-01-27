@@ -262,10 +262,14 @@ def evaluate_policy_with_stat(
                     current_rewards[i] = 0
                     current_lengths[i] = 0
                     success_episode_cnt = success_episode_cnt + 1 if infos[i]["is_success"] else success_episode_cnt
-                    # 记录该成功的轨迹
+                    # Store only necessary info fields to avoid memory leak from deepcopy
                     stat_dict_arr.append({
-                        "last_obs": deepcopy(new_observations[i]),
-                        "last_info": deepcopy(infos[i])
+                        "last_info": {
+                            "target_v": infos[i].get("target_v"),
+                            "target_mu": infos[i].get("target_mu"),
+                            "target_chi": infos[i].get("target_chi"),
+                            "is_success": infos[i].get("is_success")
+                        }
                     })
 
         observations = new_observations
