@@ -1,3 +1,4 @@
+import gc
 import os
 import warnings
 from typing import Any, Callable, Dict, List, Optional, Union
@@ -77,6 +78,7 @@ class MyEvalCallback(EventCallback):
         render: bool = False,
         verbose: int = 1,
         warn: bool = True,
+        max_history_length: int = 100,
     ):
         super().__init__(callback_after_eval, verbose=verbose)
 
@@ -112,6 +114,9 @@ class MyEvalCallback(EventCallback):
         # For computing success rate
         self._is_success_buffer = []
         self.evaluations_successes = []
+        
+        # Memory leak prevention: limit history length
+        self.max_history_length = max_history_length
 
     def _init_callback(self) -> None:
         # Does not work in some corner cases, where the wrapper is not the same
@@ -184,13 +189,62 @@ class MyEvalCallback(EventCallback):
                     self.evaluations_successes.append(self._is_success_buffer)
                     kwargs = dict(successes=self.evaluations_successes)
 
+                # Load existing npz and merge to preserve full history on disk
+                full_timesteps = list(self.evaluations_timesteps)
+                full_results = list(self.evaluations_results)
+                full_lengths = list(self.evaluations_length)
+                full_successes = list(self.evaluations_successes) if self.evaluations_successes else []
+                
+                npz_file = self.log_path + ".npz" if not self.log_path.endswith(".npz") else self.log_path
+                if os.path.exists(npz_file) and len(self.evaluations_timesteps) <= self.max_history_length:
+                    # We have trimmed before, need to load and merge
+                    try:
+                        existing = np.load(npz_file, allow_pickle=True)
+                        existing_timesteps = existing["timesteps"].tolist() if "timesteps" in existing else []
+                        existing_results = existing["results"].tolist() if "results" in existing else []
+                        existing_lengths = existing["ep_lengths"].tolist() if "ep_lengths" in existing else []
+                        existing_successes = existing["successes"].tolist() if "successes" in existing else []
+                        
+                        # Find where to merge (avoid duplicates)
+                        if existing_timesteps and full_timesteps:
+                            last_existing_ts = existing_timesteps[-1]
+                            new_start_idx = 0
+                            for i, ts in enumerate(full_timesteps):
+                                if ts > last_existing_ts:
+                                    new_start_idx = i
+                                    break
+                            else:
+                                new_start_idx = len(full_timesteps)
+                            
+                            full_timesteps = existing_timesteps + full_timesteps[new_start_idx:]
+                            full_results = existing_results + full_results[new_start_idx:]
+                            full_lengths = existing_lengths + full_lengths[new_start_idx:]
+                            if existing_successes or full_successes:
+                                full_successes = existing_successes + full_successes[new_start_idx:]
+                        existing.close()
+                    except Exception:
+                        pass  # If loading fails, just save current data
+                
+                save_kwargs = {}
+                if full_successes:
+                    save_kwargs["successes"] = full_successes
+                
                 np.savez(
                     self.log_path,
-                    timesteps=self.evaluations_timesteps,
-                    results=self.evaluations_results,
-                    ep_lengths=self.evaluations_length,
-                    **kwargs,
+                    timesteps=full_timesteps,
+                    results=full_results,
+                    ep_lengths=full_lengths,
+                    **save_kwargs,
                 )
+                
+                # Memory leak prevention: trim old history (in-memory only)
+                if len(self.evaluations_timesteps) > self.max_history_length:
+                    self.evaluations_timesteps = self.evaluations_timesteps[-self.max_history_length:]
+                    self.evaluations_results = self.evaluations_results[-self.max_history_length:]
+                    self.evaluations_length = self.evaluations_length[-self.max_history_length:]
+                    if len(self.evaluations_successes) > self.max_history_length:
+                        self.evaluations_successes = self.evaluations_successes[-self.max_history_length:]
+                    gc.collect()
 
             mean_reward, std_reward = np.mean(episode_rewards), np.std(episode_rewards)
             mean_ep_length, std_ep_length = np.mean(episode_lengths), np.std(episode_lengths)
@@ -300,7 +354,8 @@ class MyEvalCallbackSTAT(EventCallback):
         sync_fail_dict_env_method_name: str = "set_fail_goal_cnt_dict",
         stat_fail_dict: dict = {},
         stat_fail_annealing_coef: float = 1.0,
-        training_envs: SubprocVecEnv = None
+        training_envs: SubprocVecEnv = None,
+        max_history_length: int = 100,
     ):
         super().__init__(callback_after_eval, verbose=verbose)
 
@@ -348,6 +403,9 @@ class MyEvalCallbackSTAT(EventCallback):
         self.stat_fail_annealing_coef = stat_fail_annealing_coef
 
         self.training_envs: SubprocVecEnv = training_envs
+        
+        # Memory leak prevention: limit history length
+        self.max_history_length = max_history_length
 
     def _init_callback(self) -> None:
         # Does not work in some corner cases, where the wrapper is not the same
@@ -453,13 +511,62 @@ class MyEvalCallbackSTAT(EventCallback):
                     self.evaluations_successes.append(self._is_success_buffer)
                     kwargs = dict(successes=self.evaluations_successes)
 
+                # Load existing npz and merge to preserve full history on disk
+                full_timesteps = list(self.evaluations_timesteps)
+                full_results = list(self.evaluations_results)
+                full_lengths = list(self.evaluations_length)
+                full_successes = list(self.evaluations_successes) if self.evaluations_successes else []
+                
+                npz_file = self.log_path + ".npz" if not self.log_path.endswith(".npz") else self.log_path
+                if os.path.exists(npz_file) and len(self.evaluations_timesteps) <= self.max_history_length:
+                    # We have trimmed before, need to load and merge
+                    try:
+                        existing = np.load(npz_file, allow_pickle=True)
+                        existing_timesteps = existing["timesteps"].tolist() if "timesteps" in existing else []
+                        existing_results = existing["results"].tolist() if "results" in existing else []
+                        existing_lengths = existing["ep_lengths"].tolist() if "ep_lengths" in existing else []
+                        existing_successes = existing["successes"].tolist() if "successes" in existing else []
+                        
+                        # Find where to merge (avoid duplicates)
+                        if existing_timesteps and full_timesteps:
+                            last_existing_ts = existing_timesteps[-1]
+                            new_start_idx = 0
+                            for i, ts in enumerate(full_timesteps):
+                                if ts > last_existing_ts:
+                                    new_start_idx = i
+                                    break
+                            else:
+                                new_start_idx = len(full_timesteps)
+                            
+                            full_timesteps = existing_timesteps + full_timesteps[new_start_idx:]
+                            full_results = existing_results + full_results[new_start_idx:]
+                            full_lengths = existing_lengths + full_lengths[new_start_idx:]
+                            if existing_successes or full_successes:
+                                full_successes = existing_successes + full_successes[new_start_idx:]
+                        existing.close()
+                    except Exception:
+                        pass  # If loading fails, just save current data
+                
+                save_kwargs = {}
+                if full_successes:
+                    save_kwargs["successes"] = full_successes
+                
                 np.savez(
                     self.log_path,
-                    timesteps=self.evaluations_timesteps,
-                    results=self.evaluations_results,
-                    ep_lengths=self.evaluations_length,
-                    **kwargs,
+                    timesteps=full_timesteps,
+                    results=full_results,
+                    ep_lengths=full_lengths,
+                    **save_kwargs,
                 )
+                
+                # Memory leak prevention: trim old history (in-memory only)
+                if len(self.evaluations_timesteps) > self.max_history_length:
+                    self.evaluations_timesteps = self.evaluations_timesteps[-self.max_history_length:]
+                    self.evaluations_results = self.evaluations_results[-self.max_history_length:]
+                    self.evaluations_length = self.evaluations_length[-self.max_history_length:]
+                    if len(self.evaluations_successes) > self.max_history_length:
+                        self.evaluations_successes = self.evaluations_successes[-self.max_history_length:]
+                    gc.collect()
 
             mean_reward, std_reward = np.mean(episode_rewards), np.std(episode_rewards)
             mean_ep_length, std_ep_length = np.mean(episode_lengths), np.std(episode_lengths)
