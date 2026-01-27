@@ -1,10 +1,10 @@
 from typing import Any, Dict, Optional, Type, TypeVar, Union, Callable
 import logging
+import gc
 import numpy as np
 import torch as th
 from gymnasium import spaces
 from torch.nn import functional as F
-from pathlib import Path
 from pathlib import Path
 
 from stable_baselines3.ppo import PPO
@@ -242,3 +242,6 @@ class PPOWithBCLoss(PPO):
         self.logger.record("train/clip_range", clip_range)
         if self.clip_range_vf is not None:
             self.logger.record("train/clip_range_vf", clip_range_vf)
+        
+        # Force garbage collection to prevent memory leak
+        gc.collect()
