@@ -137,7 +137,8 @@ class PPOWithBCLoss(PPO):
                 # -----------------code from ActorCriticPolicy evaluate_actions()------------------------------
 
                 # calculate kl loss with the bc-trained model
-                bc_trained_algo_distribution = self.bc_trained_algo.policy.get_distribution(rollout_data.observations)
+                with th.no_grad():
+                    bc_trained_algo_distribution = self.bc_trained_algo.policy.get_distribution(rollout_data.observations)
                 kl_loss_with_bc_model = kl_divergence(
                     dist_true=bc_trained_algo_distribution,
                     dist_pred=distribution
